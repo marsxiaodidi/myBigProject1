@@ -13,6 +13,23 @@
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--/*代表一层路径
+            /**代表多层路径-->
+
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/admin/login/ssm.html"/>
+            <mvc:exclude-mapping path="/admin/exit/ssm.html"/>
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+
+            <bean class="com.atguigu.crowd.mvc.interceptor.LoginInterceptor"/>
+
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
     <!--启动注解驱动-->
     <mvc:annotation-driven/>
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
@@ -21,12 +38,16 @@
             <props>
                 <!-- key：异常全类名；value：要去的页面视图名；会走视图解析 -->
                 <prop key="java.lang.Exception">error</prop>
+                <prop key="com.atguigu.crowd.exception.AccessForbiddenException">admin-login</prop>
             </props>
         </property>
         <!--指定错误信息取出时使用的key  -->
-        <property name="exceptionAttribute" value="ex"></property>
+        <property name="exceptionAttribute" value="exception"/>
     </bean>
-
+    <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
+    <mvc:view-controller path="/admin/to/login/admin-main.html" view-name="admin-main"/>
+    <mvc:view-controller path="/admin/page/save.html" view-name="admin-add"/>
+    <mvc:view-controller path="role/search/to.html" view-name="role"/>
 
 
 

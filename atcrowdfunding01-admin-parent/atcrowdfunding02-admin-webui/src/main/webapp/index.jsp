@@ -15,6 +15,7 @@
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
 
     <script src="jquery/jquery-2.1.1.min.js"></script>
+    <script src="layer/layer.js"></script>
 
     <script>
         $(function () {
@@ -50,6 +51,10 @@
 
 
 <button id="btn1">点击进入ajax测试1</button>
-<button id="btn2">点击进入ajax测试2</button>
+<button onclick="location.href='admin/to/login/page.html'">点击进入ajax测试2</button>
+<button onclick="layer.msg('我是一个msg')">点击测试layer</button>
+
+
+
 </body>
 </html>

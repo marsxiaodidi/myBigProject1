@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-${requestScope.admins}
+我回来了
 </body>
 </html>

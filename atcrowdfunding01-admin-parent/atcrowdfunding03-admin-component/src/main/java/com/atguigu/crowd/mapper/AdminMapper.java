@@ -27,4 +27,11 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    /**
+     * 通过关键词找出对应的admin人员
+     * @param keyCard
+     * @return
+     */
+    List<Admin> findByFuzzyQuery(String keyCard);
 }

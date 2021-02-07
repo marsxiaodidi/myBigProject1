@@ -3,6 +3,7 @@ package com.atguigu.crowd.mvc.handler;
 import com.atguigu.crowd.po.Admin;
 import com.atguigu.crowd.service.api.AdminService;
 import com.atguigu.crowd.util.ResultEntity;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +23,6 @@ public class myTest {
     public String login(Model model) {
         List<Admin> all = adminService.getAll();
         model.addAttribute("admins", all);
-        Date date = null;
-        date.getTime();
         return "success";
 
     }
@@ -47,7 +46,9 @@ public class myTest {
    @ResponseBody
    public ResultEntity<Integer[]> test2(@RequestBody Integer[] array, HttpServletResponse response) throws IOException {
        System.out.println(Arrays.toString(array));
-       System.out.println(1/0);
+       System.out.println("进行热11部署");
+       System.out.println("热部署");
+
        return ResultEntity.successWithOutDate();
 
 

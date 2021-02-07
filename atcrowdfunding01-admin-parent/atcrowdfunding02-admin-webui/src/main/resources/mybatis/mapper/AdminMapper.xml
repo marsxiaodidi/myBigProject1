@@ -157,7 +157,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <select id="findByFuzzyQuery" resultMap="BaseResultMap">
+      select * from t_admin where login_acct like CONCAT("%",#{keyCard},"%") or user_name like CONCAT("%",#{keyCard},"%") or email like CONCAT("%",#{keyCard},"%")
+
+
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
     update t_admin
     <set >
       <if test="record.id != null" >
