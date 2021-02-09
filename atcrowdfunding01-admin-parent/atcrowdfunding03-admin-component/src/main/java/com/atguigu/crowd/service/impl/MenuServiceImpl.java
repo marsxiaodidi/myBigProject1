@@ -23,4 +23,21 @@ public class MenuServiceImpl implements MenuService {
 
         return menuMapper.selectByExample(new MenuExample());
     }
+
+    @Override
+    public void addMenu(Menu menu) {
+        menuMapper.insertSelective(menu);
+    }
+
+    @Override
+    public void updateMenu(Menu menu) {
+        //如果没有修改的不会进行更新的
+        menuMapper.updateByPrimaryKeySelective(menu);
+    }
+
+    @Override
+    public void deleteMenu(Integer id) {
+        menuMapper.deleteByPrimaryKey(id);
+    }
+
 }

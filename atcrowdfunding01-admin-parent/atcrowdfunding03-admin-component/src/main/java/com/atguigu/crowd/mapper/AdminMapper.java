@@ -34,4 +34,8 @@ public interface AdminMapper {
      * @return
      */
     List<Admin> findByFuzzyQuery(String keyCard);
+
+    void deleteAdminIdFromInner(Integer id);
+
+    void addRoleFromInner(@Param("adminId")Integer adminId,@Param("ids")Integer[] ids);
 }

@@ -12,4 +12,18 @@ import java.util.List;
 public interface MenuService {
     List<Menu> getAllMenu();
 
+    /**
+     * 添加menu
+     * @param menu
+     */
+    void addMenu(Menu menu);
+
+    /**
+     * 更新menu
+     *
+     * @param menu
+     */
+    void updateMenu(Menu menu);
+
+    void deleteMenu(Integer id);
 }

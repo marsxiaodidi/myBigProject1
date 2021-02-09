@@ -29,4 +29,19 @@ public interface RoleMapper {
 
     int updateByPrimaryKey(Role record);
     List<Role> getRolesByKeyCard(String keyCard);
+
+    /**
+     * 得到该id已经分配的Role
+     * @param id
+     * @return
+     */
+    List<Role> getAlreadyAssignRole(Integer id);
+
+    /**
+     * 得到没有进行分配的ROle
+     * @param id
+     * @return
+     */
+    List<Role> getNotAssignRole(Integer id);
+
 }

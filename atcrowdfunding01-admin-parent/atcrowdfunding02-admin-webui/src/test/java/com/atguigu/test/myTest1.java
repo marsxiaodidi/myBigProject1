@@ -118,5 +118,13 @@ public class myTest1 {
         System.out.println(mp5
         );
     }
+    @Test
+    public void Test09(){
+        List<Role> alreadyAssignRole = roleMapper.getAlreadyAssignRole(1);
+        for (Role role : alreadyAssignRole) {
+            System.out.println(role);
+        }
+
+    }
 }
 

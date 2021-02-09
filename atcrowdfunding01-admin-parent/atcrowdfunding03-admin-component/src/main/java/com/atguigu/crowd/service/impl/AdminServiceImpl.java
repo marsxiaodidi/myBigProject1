@@ -94,5 +94,15 @@ public class AdminServiceImpl implements AdminService {
         adminMapper.updateByPrimaryKeySelective(admin);
     }
 
+    @Override
+    public void deleteAdminIdFromInner(Integer id) {
+        adminMapper.deleteAdminIdFromInner(id);
+    }
+
+    @Override
+    public void addRoleByThisAdminByInner(Integer adminId, Integer[] ids) {
+        adminMapper.addRoleFromInner(adminId,ids);
+    }
+
 
 }

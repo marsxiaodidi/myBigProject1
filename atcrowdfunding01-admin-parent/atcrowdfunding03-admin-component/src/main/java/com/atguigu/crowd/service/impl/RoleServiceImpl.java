@@ -54,4 +54,16 @@ public class RoleServiceImpl implements RoleService {
         criteria.andIdIn(Arrays.asList(roleIds));
         roleMapper.deleteByExample(roleExample);
     }
+
+    @Override
+    public List<Role> getAlreadyAssignRole(Integer id) {
+        return roleMapper.getAlreadyAssignRole(id);
+    }
+
+    @Override
+    public List<Role> getNotAssignRole(Integer id) {
+        return roleMapper.getNotAssignRole(id);
+
+
+    }
 }

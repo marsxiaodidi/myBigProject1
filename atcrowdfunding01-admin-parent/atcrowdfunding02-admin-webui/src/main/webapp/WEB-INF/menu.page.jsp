@@ -4,29 +4,13 @@
 <%@include file="/WEB-INF/include-head.jsp"%>
 <link rel="stylesheet" href="ztree/zTreeStyle.css"/>
 <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="script/menu.js"></script>
 <script>
   $(function () {
-    $.ajax({
-      "url": "menu/getMenuList/ssm.json",
-      "type":"post",
-      "dataType":"json",
-      "success":function(response){
-        var result = response.result;
-
-        if(result === "SUCCESS") {
-// 2.创建JSON 对象用于存储对zTree 所做的设置
-          var setting = {};
-// 3.从响应体中获取用来生成树形结构的JSON 数据
-          var zNodes = response.data;
-// 4.初始化树形结构
-          $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        }
-        if(result === "FAILED") {
-          layer.msg(response.message);
-        }
-      }
-    });
-
+   getMenuPage();
+   menuAddBtn();
+   menuUpdateBtn();
+   menuDeleteBtn();
   });
 </script>
 
@@ -45,11 +29,12 @@
       </div>
     </div>
   </div>
-  </div>
-  </div>
 
 
-
+  <%@include file="/WEB-INF/modal-menu-add.jsp"%>
+  <%@include file="/WEB-INF/modal-menu-edit.jsp"%>
+  <%@include file="/WEB-INF/modal-menu-confirm.jsp"%>
   </body>
+
   </html>
 

@@ -100,7 +100,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.atguigu.crowd.po.Admin" >
+    <delete id="deleteAdminIdFromInner">
+      delete from inner_admin_role where admin_id = #{id}
+    </delete>
+    <insert id="insert" parameterType="com.atguigu.crowd.po.Admin" >
     insert into t_admin (id, login_acct, user_pswd, 
       user_name, email, create_time
       )
@@ -150,6 +153,11 @@
         #{createTime,jdbcType=CHAR},
       </if>
     </trim>
+  </insert>
+  <insert id="addRoleFromInner">
+      insert into inner_admin_role values <foreach collection="ids" separator="," item="roleId">
+    (#{adminId},#{roleId})
+  </foreach>
   </insert>
   <select id="countByExample" parameterType="com.atguigu.crowd.po.AdminExample" resultType="java.lang.Integer" >
     select count(*) from t_admin

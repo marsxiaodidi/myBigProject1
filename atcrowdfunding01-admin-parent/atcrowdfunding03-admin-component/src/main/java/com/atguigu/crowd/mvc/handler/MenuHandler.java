@@ -5,9 +5,7 @@ import com.atguigu.crowd.service.api.MenuService;
 import com.atguigu.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,8 +44,34 @@ public class MenuHandler {
         }
 
 
-
         return ResultEntity.successWithData(root);
 
     }
+
+    @RequestMapping(value = "/add/ssm.json",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultEntity<Object> add(Menu menu) {
+        menuService.addMenu(menu);
+
+        return ResultEntity.successWithOutDate();
+
+    }
+    @RequestMapping(value = "/update/ssm.json",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultEntity<Object> update(Menu menu) {
+        menuService.updateMenu(menu);
+
+        return ResultEntity.successWithOutDate();
+
+    }
+    @RequestMapping(value = "/delete/ssm.json",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultEntity<Object> delete(@RequestParam("id")Integer id) {
+        menuService.deleteMenu(id);
+        return ResultEntity.successWithOutDate();
+
+    }
+
 }
+
+

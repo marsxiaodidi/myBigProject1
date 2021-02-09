@@ -55,4 +55,16 @@ public interface AdminService {
      * @param admin
      */
     void updateAdmin(Admin admin);
+
+    /**
+     * 删除联合表中的id为admin的所有数据
+     */
+    void deleteAdminIdFromInner(Integer id);
+
+    /**
+     * 添加所有的role,通过adminId
+     * @param ids
+     */
+    void addRoleByThisAdminByInner(Integer adminId,Integer[] ids);
+
 }
