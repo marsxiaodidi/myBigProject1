@@ -52,7 +52,38 @@
 
 <button id="btn1">点击进入ajax测试1</button>
 <button onclick="location.href='admin/to/login/page.html'">点击进入ajax测试2</button>
-<button onclick="layer.msg('我是一个msg')">点击测试layer</button>
+<button onclick="layer.msg('我是一个msg')">点击实验layer</button>
+<form role="form" id="myform">
+    <input type="text" name="textresult">
+
+</form>
+<div id="myform1"></div>
+<button id="btn11">点击进行提交</button>
+<script>
+    $(function () {
+        $("#btn11").click(function () {
+            $("#myform1").empty();
+
+
+        let val = $("#myform [name = textresult]").val();
+
+
+    $.ajax({
+
+        url:"admin/get24/ssm.html",
+        type: "post",
+        data: {"text":val},
+
+        success:function (data) {
+            $("#myform1").append("<h1>"+data+"</h1>")
+        }})
+
+    })
+    })
+
+</script>
+
+
 
 
 

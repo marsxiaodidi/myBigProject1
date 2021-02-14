@@ -11,10 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.security.auth.login.FailedLoginException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +45,7 @@ public class AdminHandler {
         Admin admin = adminService.loginAdmin(loginAcct, password);
         HttpSession session = request.getSession();
         session.setAttribute("AdminUser", admin);
+        System.out.println("我jdfg猪");
         return "redirect:/admin/to/login/admin-main.html";
     }
 
@@ -99,6 +107,139 @@ public class AdminHandler {
         }
         return "redirect:/admin/search/ssm.html?pageNum="+Integer.MAX_VALUE;
 
+    }
+    @RequestMapping("/get24/ssm.html")
+    @ResponseBody
+    public String get24Test(@RequestParam("text")String text) {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        String[] s = text.split(" ");
+        for (String s1 : s) {
+            Integer i = Integer.parseInt(s1);
+            arrayList.add(i);
+
+        }
+        Integer[] integers1 = new Integer[]{};
+        Integer[] integers2 = arrayList.toArray(integers1);
+        ArrayList<Integer[]> integers = new ArrayList<>();
+        getDiff(integers,integers2,0);
+
+
+        //封装+,-,*,/
+        String [] strings = {"+","-","*","/"};
+        //取出排列组合后的每一个integer
+        for (Integer[] integer : integers) {
+            for (String str1 : strings) {
+                for (String str2 : strings) {
+                    for (String str3 : strings) {
+
+                        String result = null;
+
+
+                        result = "(("+integer[0] +str1+integer[1]+")";
+
+                        result += str2+integer[2]+")";
+
+                        result += str3+integer[3];
+
+
+                        try {
+                            Object aDouble = getDouble(result);
+                            if (aDouble.toString().equals("24")) {
+                                return result;
+
+                            }
+                        } catch (ScriptException  e) {
+                            e.printStackTrace();
+                        }
+
+
+                        //(a+b)*(c+d) ac ad bc bd
+                        result = "("+integer[0] +str1+integer[1]+")"+str2+"("+integer[2]+str3+integer[3]+")";
+                        try {
+                            Object aDouble = getDouble(result);
+                            if (aDouble.toString().equals("24")) {
+                               /* System.out.println(result);*/
+                                return result;
+                            }
+                        } catch (ScriptException  e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+
+        return "没有";
+    }
+
+
+
+    /**
+     * 进行不同的排列组合,通过index指向当前的数，用i循环代表可以进行交换的数
+     * @return
+     */
+    public void getDiff(List<Integer[]> allIds,Integer[] ids,Integer index){
+        if (ids == null || ids.length == 0 || index < 0 || index >= ids.length) {
+            System.out.println("数据错误");
+            return;
+        }
+
+        //如果index和数组长度相等代表指向了最后一个数了
+        if (index == ids.length-1){
+            Integer[] clone = ids.clone();
+            allIds.add(clone);
+            return;
+
+        }
+
+
+        //让id[index]和id[i]进行交换
+        for (int i = index; i < ids.length; i++) {
+            ids = swap(ids, index, i);
+            getDiff(allIds,ids,index+1);
+            //交换回来，以便进行新的交换
+            ids = swap(ids,index,i);
+
+
+        }
+        /**
+         * 1234 1243 1324 1342 1423 1432
+         */
+        //首先先把最后的两位进行交换，
+
+
+
+    }
+
+
+    /**
+     * 进行交换
+     * @param a
+     * @param b
+     * @return
+     */
+    public Integer[] swap(Integer[] ids,int a,int b){
+        Integer id = ids[a];
+        ids[a] = ids[b];
+        ids[b] = id;
+        return ids;
+
+    }
+
+
+
+    public Object getDouble(String str) throws ScriptException {
+      /*  char[] chars={'1','2','3','4'};
+
+        p(chars,0);*/
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+        ScriptEngine js = scriptEngineManager.getEngineByName("js");
+        Object eval = js.eval(str);
+
+        return eval;
     }
 
 

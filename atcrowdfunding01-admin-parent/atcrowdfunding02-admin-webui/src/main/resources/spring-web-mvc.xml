@@ -23,6 +23,7 @@
             <mvc:exclude-mapping path="/admin/login/ssm.html"/>
             <mvc:exclude-mapping path="/admin/exit/ssm.html"/>
             <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+            <mvc:exclude-mapping path="/admin/get24/ssm.html"/>
 
             <bean class="com.atguigu.crowd.mvc.interceptor.LoginInterceptor"/>
 
